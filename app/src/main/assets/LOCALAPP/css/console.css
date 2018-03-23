@@ -1,0 +1,21 @@
+
+
+#console{background:rgba(0, 102, 204,0.1);width:100%;height: 152px;position:absolute;bottom:0;left:0;border-radius: 25px;border: 1px solid #73AD21;z-index:-1;}
+
+#communications,#colonna_position,#colonna_user,#colonna_poiinfo,#radarContainer,#map,#social,#tb{
+opacity:1;
+}
+
+#communications{background:rgba(0, 102, 204,0.1);width:60%;height:67px;position:absolute;top:0px;left:20%;border-radius: 12px;border: 1px solid #73AD21;font-size: 28px;font-family: Calibri;color: #ad2133;font-weight: bold;text-align: center;text-shadow: 2px 2px #001a33;vertical-align:middle;}
+
+#radarContainer {position:absolute;bottom:0;right:40%;width: 150px;height: 150px;z-index:2;border: 2px solid #73AD21;border-radius: 25px;}
+
+#mapdiv{
+position:absolute;
+top: 20%;
+left:40%;
+display:none;
+}
+
+			
+

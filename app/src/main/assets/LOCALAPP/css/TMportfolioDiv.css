@@ -1,0 +1,46 @@
+#superPortfolioDiv{
+height: 250px;
+width: 50%;
+position:absolute;
+bottom:126px;
+left:0;
+display:none;
+font-size: 12px;
+font-family: Calibri;
+color: black;
+}
+
+#portfolioDescrDiv{position:absolute;/* top:0; */
+left:0;height:100%;width:30%;border-radius: 25px;border: 1px solid #73AD21;padding:5px;background:rgba(0, 102, 204,0.1);
+overflow-x:hidden;
+overflow-y:auto;
+}
+
+div#portfolioDescrDiv {
+    bottom: 3px;
+}
+
+#yourPortfolioDiv{position:absolute;left:30%;height:100%;width:70%;border-radius: 25px;border: 1px solid #73AD21;background:rgba(194, 214, 214,0.1);}
+
+div#yourPortfolioDiv {
+    padding: 5px;
+}
+
+div#yourPortfolioDiv {
+    bottom: 3px;
+}
+
+div#yourPortfolioDiv {
+    margin-left: 15px;
+    /* margin-bottom: 3px; */
+}
+.nomecoupon{
+	
+	color:red;
+}
+
+.valorecoupon{
+	
+	color:green;
+	font-weight:bold;
+}

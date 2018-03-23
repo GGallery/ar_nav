@@ -1,0 +1,78 @@
+#superMapDiv{
+
+height: 70%;
+width: 100%;
+position:absolute;
+top:0;
+left:0;
+display:none;
+
+}
+#MapLegend{
+position:absolute;
+top: 10%;
+left:0;
+z-index:1;
+}
+
+#mapDiv{
+position:absolute;
+top:0;
+left:0;
+height:100%;	
+width:80%;
+border-radius: 25px;
+border: 1px solid #73AD21;}
+
+#mapInfoDiv{
+position:absolute;
+top:0;
+left:80%;	
+height:100%;	
+width:20%;	
+border-radius: 25px;
+border: 1px solid #73AD21;	
+background:rgba(194, 214, 214,0.1);	
+}
+
+div#mapInfoDiv {
+}
+
+#poiTitle{
+
+position:absolute;
+top:0;
+left:0;	
+height:10%;	
+width:100%;	
+padding: 5px;
+text-align:center;
+}
+
+
+#poiImage{
+
+position:absolute;
+top:10%;
+left:0;	
+height:20%;	
+width:100%;	
+margin-left: 5px;
+background-repeat:no-repeat;
+background-size:contain;
+border-width: 1px;
+border-color: #003366;
+padding:1px;	
+}
+
+#poiStory{
+
+position:absolute;
+top:30%;
+left:0%;	
+height:70%;	
+width:90%;	
+overflow: auto;	
+padding: 5px;
+}
+

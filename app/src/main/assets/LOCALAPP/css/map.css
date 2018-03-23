@@ -1,0 +1,28 @@
+#superMapDiv{
+
+height: 80%;
+width: 100%;
+position:absolute;
+top:0;
+left:0;
+display:none;
+	
+}
+
+#mapDiv{
+position:absolute;
+top:0;
+left:0;
+height:100%;	
+width:80%;
+	
+}
+
+#mapInfoDiv{
+position:absolute;
+top:0;
+left:20%;	
+height:100%;	
+width:20%;	
+	
+}
