@@ -145,7 +145,7 @@ public final class GgalleryBeaconListenerIntentService extends IntentService {
                     if (!beacons.isEmpty()) {
 
                         nearest_beacon_uuid = "";
-                        nearest_beacon_rssi = -1000;
+                        nearest_beacon_rssi = -1000 ;
 
                         for (Beacon beacon_ : beacons) {
                             if (beacon_.getRssi() > nearest_beacon_rssi) {
