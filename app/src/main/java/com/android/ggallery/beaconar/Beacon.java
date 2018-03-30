@@ -4,11 +4,16 @@ public class Beacon {
 
     private String Uuid;
     private Integer Rssi;
+    private Integer Major;
+    private Integer Minor;
 
-    public Beacon(String uuid, Integer rssi){
+    public Beacon(String uuid, Integer rssi, Integer major, Integer minor){
 
         this.Uuid=uuid;
         this.Rssi=rssi;
+        this.Major=major;
+        this.Minor=minor;
+
 
     }
 
@@ -22,6 +27,15 @@ public class Beacon {
         return this.Rssi;
     }
 
+    public Integer getMajor(){
+
+        return this.Major;
+    }
+
+    public Integer getMinor(){
+
+        return this.Minor;
+    }
 
 
 }

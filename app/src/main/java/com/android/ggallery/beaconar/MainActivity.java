@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler scanHandler = new Handler();
     private int scan_interval_ms = 2000;
-    private String actualRoom="";
+    private Integer actualRoom=-9999;
     ArchitectView architectView;
     private Global global;
 
@@ -36,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
             if(global.getNearestBeacon()!=null) {
                 Log.i("ACTUAL UUID NEAREST", global.getNearestBeacon().getUuid());
-                openRoomAR(global.getNearestBeacon().getUuid());
+                Log.i("ACTUAL MINOR NEAREST", global.getNearestBeacon().getMinor().toString());
+                Log.i("ACTUAL MAJOR NEAREST", global.getNearestBeacon().getMajor().toString());
+                openRoomAR(global.getNearestBeacon().getMajor());
 
 
             }else{
@@ -47,14 +49,14 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void openRoomAR(String uuid){
+    private void openRoomAR(Integer major){
 
-        if(!uuid.equals(actualRoom)){
+        if(major!=actualRoom){
 
-            actualRoom=uuid;
+            actualRoom=major;
 
             try {
-                this.architectView.load("LOCALAPP/"+actualRoom+"/index.html");
+                this.architectView.load("LOCALAPP/"+actualRoom.toString()+"/index.html");
 
             }catch (Exception e){
 

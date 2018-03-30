@@ -1,14 +1,14 @@
 package com.android.ggallery.beaconar;
 
 import android.app.IntentService;
+import android.content.Context;
+import android.content.Intent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
-
 import java.util.ArrayList;
+
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -26,9 +26,11 @@ public final class GgalleryBeaconListenerIntentService extends IntentService {
 
     private String Uuid;
     private Integer Rssi;
+    private Integer min;
+    private Integer Max;
     private ArrayList<Beacon> beacons;
     private Beacon nearestbeacon;
-
+    private String LocationUUid="C336AA38-054B-B048-3B0A-E75027061982";//CONFIGURAZIONE UUID DI CLIENTE
 
     public GgalleryBeaconListenerIntentService() {
         super("GgalleryBeaconListenerIntentService");
@@ -69,7 +71,10 @@ public final class GgalleryBeaconListenerIntentService extends IntentService {
 
     private Runnable scanRunnable = new Runnable()
     {
-
+        String nearest_beacon_uuid;
+        Integer nearest_beacon_min;
+        Integer nearest_beacon_Max;
+        Integer nearest_beacon_rssi;
 
         @Override
         public void run() {
@@ -85,14 +90,40 @@ public final class GgalleryBeaconListenerIntentService extends IntentService {
             {
                 if (btAdapter != null)
                 {
-                    Global global = (Global)getApplicationContext();
-                    global.setNearestBeacon(null);
-                    btAdapter.startLeScan(leScanCallback);//callback che parte solo se lo ha trovato
+                    if(!beacons.isEmpty()) {
+                        beacons.clear();
+                    }
+                    btAdapter.startLeScan(leScanCallback);
                 }
             }
 
             isScanning = !isScanning;
+            if(beacons!=null) {
+                if (!beacons.isEmpty()) {
 
+                    nearest_beacon_uuid = "";
+                    nearest_beacon_rssi = -1000;
+                    nearest_beacon_min=0;
+                    nearest_beacon_Max=0;
+
+                    for (Beacon beacon : beacons) {
+                        if (beacon.getRssi() > nearest_beacon_rssi) {
+
+                            nearest_beacon_rssi = beacon.getRssi();
+                            nearest_beacon_uuid = beacon.getUuid();
+                            nearest_beacon_Max=beacon.getMajor();
+                            nearest_beacon_min=beacon.getMinor();
+
+                        }
+                    }
+
+                    Beacon nearestbeacon = new Beacon(nearest_beacon_uuid, nearest_beacon_rssi,nearest_beacon_Max,nearest_beacon_min);
+                    Global global = (Global)getApplicationContext();
+                    global.setNearestBeacon(nearestbeacon);
+
+
+                }
+            }
             scanHandler.postDelayed(this, scan_interval_ms);
         }
     };
@@ -101,9 +132,7 @@ public final class GgalleryBeaconListenerIntentService extends IntentService {
         @Override
         public void onLeScan(final BluetoothDevice device, final int rssi, final byte[] scanRecord)
         {
-            beacons.clear();
-            String nearest_beacon_uuid;
-            Integer nearest_beacon_rssi;
+            // label.setText("nothing");
             int startByte = 2;
             boolean patternFound = false;
             while (startByte <= 5)
@@ -138,27 +167,9 @@ public final class GgalleryBeaconListenerIntentService extends IntentService {
                 final int minor = (scanRecord[startByte + 22] & 0xff) * 0x100 + (scanRecord[startByte + 23] & 0xff);
 
 
-
-                Beacon beacon =new Beacon(uuid.substring(uuid.length()-2,uuid.length()-0),rssi);
-                beacons.add(beacon);
-                if(beacons!=null) {
-                    if (!beacons.isEmpty()) {
-
-                        nearest_beacon_uuid = "";
-                        nearest_beacon_rssi = -1000 ;
-
-                        for (Beacon beacon_ : beacons) {
-                            if (beacon_.getRssi() > nearest_beacon_rssi) {
-
-                                nearest_beacon_rssi = beacon_.getRssi();
-                                nearest_beacon_uuid = beacon_.getUuid();
-                            }
-                        }
-
-                        Beacon nearestbeacon = new Beacon(nearest_beacon_uuid, nearest_beacon_rssi);
-                        Global global = (Global)getApplicationContext();
-                        global.setNearestBeacon(nearestbeacon);
-                    }
+                if(uuid.equals(LocationUUid)) {
+                    Beacon beacon = new Beacon(uuid, rssi, major, minor);
+                    beacons.add(beacon);
                 }
             }
 
